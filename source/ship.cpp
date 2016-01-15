@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "matrix.h"
+#include "matrix_pointers.h"
 
 using namespace std;
 
 int blankinship() {
-
+	
 	/*matrix<long> mtx(3,1);
 	matrix<long> mtx1(3, 1);
 

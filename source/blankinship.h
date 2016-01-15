@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "matrix.h"
+#include "matrix_pointers.h"
 
 template<class Ty>
-Ty gcd(Ty &a, Ty &b) {
+Ty gcd(Ty a, Ty b) {
 
 	while (b != 0 && a != 0) {
 
@@ -19,14 +19,12 @@ Ty gcd(Ty &a, Ty &b) {
 
 	if(a == 0)
 		a = b;
-	
 
 	return a;
 }
 
-template<class Ty>
+/*template<class Ty>
 std:::vector<Ty> blankinship(Ty &a, Ty &b) {
-
 	matrix<Ty> mtx(3, 1);
 	matrix<Ty> mtx1(3, 1);
 
@@ -48,9 +46,8 @@ std:::vector<Ty> blankinship(Ty &a, Ty &b) {
 		mtx = mtx1;
 
 
-	return mtx[2][0];
-	cout << "also, the Bezout coefficients are:" << mtx[0][0] << ", " << mtx[1][0] << endl;
-}
+	return vetor<Ty>({;
+	}*/
 
 
 #endif

@@ -1,11 +1,13 @@
-#ifndef GUARD_MATRIX_POINTERS_H
-#define GUARD_MATRIX_POINTERS_H
-/*Old implimentation of Matrix, creates array of arrays, turned out to be slower
-then one-dimentional matrix.
+#ifndef GUARD_MATRIX_VECTOR_H
+#define GUARD_MATRIX_VECTOR_H
+/*Old implimentation of Matrix, uses STL vectors, and still turned out to be MANY MANY
+times slower then its other implementations.
 
 It's also hidden under a namespace to prevent overloading while testing.*/
+#include <vector>
 
-namespace nested_dynamic_arrays {
+namespace vector
+{
 	template<class Ty> class Matrix {
 
 	public:
@@ -15,37 +17,29 @@ namespace nested_dynamic_arrays {
 		Matrix<Ty>() : Matrix<Ty>(1, 1) { }
 
 		/*Matrix Constructor, taking _height(ht) and _width(wd) as arguments*/
-		Matrix<Ty>(size_type ht, size_type wd, const Ty &inital_value = Ty()) {
-			arrayAllocator(ht, wd);
-			for (size_type i = 0; i < _height; i++)
-				for (size_type j = 0; j < _width; j++)
-					(*this)(i, j) = inital_value;
-		}
+		Matrix<Ty>(size_type ht, size_type wd, const Ty &inital_value = Ty()):
+			_height(ht),
+			_width(wd),
+			_mtx(_height * _width, inital_value)
+		{ }
 
 		/*Matrix Copy Constructor*/
-		Matrix<Ty>(const Matrix &old_mtx) {
-			arrayAllocator(old_mtx._height, old_mtx._width);
-			for (size_type i = 0; i < _height; i++)
-				for (size_type j = 0; j < _width; j++)
-					_mtx[i][j] = old_mtx._mtx[i][j];
-		}
+		Matrix<Ty>(const Matrix &old_mtx):
+			_height(old_mtx._height),
+			_width(old_mtx._width),
+			_mtx(old_mtx._mtx)
+		{ }
 
 		/*Copy Assignment Cperator*/
 		Matrix<Ty> &operator= (const Matrix &old_mtx) {
-			if (this != &old_mtx) {
-				arrayDelocator(_height);
-				arrayAllocator(old_mtx._height, old_mtx._width);
-				for (size_type i = 0; i < _height; i++)
-					for (size_type j = 0; j < _width; j++)
-						this->_mtx[i][j] = old_mtx._mtx[i][j];
-			}
-			return *this;//This is supposed to return a reference to this object, not an instance of the object, but it seems that C++ should add & implicity
+			this->_height = old_mtx._height;
+			this->_width = old_mtx._width;
+			this->_mtx = old_mtx._mtx;
+			return *this;
 		}
 
 		/*Destructor*/
-		~Matrix<Ty>() {
-			arrayDelocator(_height);
-		}
+		~Matrix<Ty>() { }
 
 
 		/*Interface*/
@@ -81,23 +75,7 @@ namespace nested_dynamic_arrays {
 	private:
 		size_type _height;
 		size_type _width;
-		Ty** _mtx;
-
-		/*Memory allocator*/
-		void arrayAllocator(size_type ht, size_type wd) {
-			_height = ht;
-			_width = wd;
-			_mtx = new Ty*[_height];
-			for (size_type i = 0; i < _height; i++)
-				_mtx[i] = new Ty[_width];
-		}
-
-		/*Memory freeyer*/
-		void arrayDelocator(const size_type _height) {
-			for (size_type i = 0; i < _height; i++)
-				delete[] _mtx[i];
-			delete[] _mtx;
-		}
+		std::vector<Ty> _mtx;
 	};
 
 	/*Non-Member funcitons*/
@@ -143,7 +121,8 @@ namespace nested_dynamic_arrays {
 		typename Matrix<Ty>::size_type L1,
 		typename  Matrix<Ty>::size_type L2,
 		const Ty &coef);
+
 }
-#include "matrix_pointers.cpp"
+#include "matrix_vector.cpp"
 
 #endif
