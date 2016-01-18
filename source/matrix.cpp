@@ -2,9 +2,9 @@
 #define MATRIX_MATRIX_CPP
 
 #include "matrix.h"
+#include <iostream>
 
 /*Member functions*/
-
 
 /*Private member-functions*/
 template<class Ty>
@@ -27,6 +27,16 @@ Matrix<Ty>::Matrix<Ty>(size_type ht, size_type wd, const Ty &inital_value = Ty()
 		this->_mtx[i] = inital_value;
 }
 
+template<class Ty>
+Matrix<Ty>::Matrix<Ty>(std::initializer_list<std::initializer_list<Ty> > init_list) {
+	arrayAllocator(init_list.size(), init_list.begin()->size());
+	size_type i, j;
+	std::initializer_list<std::initializer_list<Ty> >::iterator i_it;
+	std::initializer_list<Ty>::iterator j_it;
+	for (i_it = init_list.begin(), i = 0; i_it != init_list.end(); i_it++, i++)
+		for (j_it = i_it->begin(), j = 0; j_it != i_it->end(); j_it++, j++)
+			this->_mtx[_width * i + j] = *j_it;
+}
 template<class Ty>
 Matrix<Ty>::Matrix<Ty>(const Matrix &old_mtx) {
 	arrayAllocator(old_mtx._height, old_mtx._width);

@@ -1,6 +1,8 @@
 #ifndef GUARD_MATRIX_H
 #define GUARD_MATRIX_H
 
+#include <initializer_list>
+#include <vector>
 template<class Ty> class Matrix {
 
 public:
@@ -11,6 +13,9 @@ public:
 
 	/*Matrix Constructor, taking _height(ht) and _width(wd) as arguments*/
 	Matrix<Ty>(size_type ht, size_type wd, const Ty &inital_value = Ty());
+
+	/*Matrix Constructor, taking an initilizer list.*/
+	Matrix<Ty>(std::initializer_list<std::initializer_list<Ty> > init_list);
 
 	/*Matrix Copy Constructor*/
 	Matrix<Ty>(const Matrix &old_mtx);
@@ -56,6 +61,7 @@ private:
 	size_type _height;
 	size_type _width;
 	Ty* _mtx;
+	std::vector<int> abc = { 2, 3 };
 
 	/*Memory allocator*/
 	void arrayAllocator(size_type ht, size_type wd);
