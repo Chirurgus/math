@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+
+#My addition
+#All the Visual Stuio stuff in math folder
+math/

@@ -2,7 +2,7 @@
 #define GUARD_MATRIX_H
 
 #include <initializer_list>
-#include <vector>
+
 template<class Ty> class Matrix {
 
 public:
@@ -61,7 +61,6 @@ private:
 	size_type _height;
 	size_type _width;
 	Ty* _mtx;
-	std::vector<int> abc = { 2, 3 };
 
 	/*Memory allocator*/
 	void arrayAllocator(size_type ht, size_type wd);

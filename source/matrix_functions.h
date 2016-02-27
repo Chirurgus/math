@@ -71,7 +71,7 @@ template<class Ty> std::ostream& write(std::ostream &os,const Matrix<Ty> &mtx) {
 	for (Matrix<Ty>::size_type i = 0; i < height; i++) {
 		os << "|   ";
 		for (Matrix<Ty>::size_type j = 0; j < width; j++) {
-			os << mtx[i][j] << "   ";
+			os << mtx(i,j) << "   ";
 		}
 		os << '|' << std::endl;
 	}

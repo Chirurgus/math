@@ -1,14 +1,14 @@
 #ifndef GUARD_BLANKINSHIP_H
 #define GUARD_BLANKINSHIP_H
 
+#include "matrix.h"
+
 #include <vector>
-
-#include "matrix_pointers.h"
-
 template<class Ty>
 Ty gcd(Ty a, Ty b) {
+	const Ty zero_equivalent();
 
-	while (b != 0 && a != 0) {
+	while (b != zero_equivalent && a != zero_equivalent) {
 
 		if (a >= b)
 			a -= b;
@@ -17,37 +17,36 @@ Ty gcd(Ty a, Ty b) {
 
 		}
 
-	if(a == 0)
+	if(a == zero_equivalent)
 		a = b;
 
 	return a;
 }
 
-/*template<class Ty>
-std:::vector<Ty> blankinship(Ty &a, Ty &b) {
-	matrix<Ty> mtx(3, 1);
-	matrix<Ty> mtx1(3, 1);
+template<class Ty>
+std::vector<Ty> blankinship(Ty a, Ty b) {
+	Matrix<Ty> mtx0 = { {1},
+						{0},
+						{a} };
+	Matrix<Ty> mtx1 = { {0},
+						{1},
+						{b} };
 
-	mtx[0][0] = 1;	mtx1[0][0] = 0;
-	mtx[1][0] = 0;	mtx1[1][0] = 1;
-	mtx[2][0] = a;	mtx1[2][0] = b;
+	while (mtx1(2, 0) != 0 && mtx0(2, 0) != 0) {
 
-
-	while (mtx1[2][0] != 0 && mtx[2][0] != 0) {
-
-		if (mtx[2][0] >= mtx1[2][0])
-			mtx = mtx - mtx1;
+		if (mtx0(2, 0) >= mtx1(2, 0))
+			mtx0 = mtx0 - mtx1;
 		else
-			mtx1 = mtx1 - mtx;
+			mtx1 = mtx1 - mtx0;
 
 	}
 
-	if (mtx[2][0] == 0)
-		mtx = mtx1;
+	if (mtx0(2, 0) == 0)
+		mtx0 = mtx1;
 
 
-	return vetor<Ty>({;
-	}*/
+	return std::vector<Ty>{ mtx0(0, 0), mtx0(1, 0) };
+	}
 
 
 #endif
