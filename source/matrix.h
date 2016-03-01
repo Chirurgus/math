@@ -6,7 +6,7 @@
 template<class Ty> class Matrix {
 
 public:
-	typedef unsigned long long size_type;
+	typedef unsigned size_type;
 
 	/*Matrix Default Constructor*/
 	Matrix<Ty>() : Matrix<Ty>(1, 1) { }
